@@ -8,9 +8,6 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const schema = new Schema({
     name: { type: String, required: true },
-    //id do criador?
-    //foldersId: {type: Schema.Types.ObjectId, ref: 'folders'},
-    //ideaId: {type: Schema.Types.ObjectId, ref: 'ideas'},
   }, {
     timestamps: true
   });
@@ -26,13 +23,12 @@ module.exports = function (app) {
 
 module.exports.createValidationSchema = {
   type: 'object',
-  required: [],
+  required: [ 'name'],
   properties: {
-    strategy:{
+    name:{
       type: 'string',
-      enum: [
-        'local'
-      ],
+      // TODO
+      // sanitize
     },
   }
 };

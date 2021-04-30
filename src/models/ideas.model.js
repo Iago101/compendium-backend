@@ -23,10 +23,15 @@ module.exports = function (app) {
     rules: { type: String},
   });
 
+  const tagSchema = new Schema({
+    tagId: { type: Schema.Types.ObjectId, ref: 'tags'}, 
+    name:{ type: String, required: true },
+  });
+
   const schema = new Schema({
     title: { type: String, required: true },
     foldersId: { type: Schema.Types.ObjectId, ref: 'folders'}, // multi pastas, cópias? ou referencias da original, pastas guardam o id
-    tags: {type: Schema.Types.ObjectId, ref: 'tags'},//string array
+    tags: [{type: tagSchema}],//string array
     image: { type: String }, 
     privacy: {type: String},
     description: { type: String },
@@ -62,6 +67,22 @@ module.exports.createValidationSchema = {
       ],
     },
 
+    tags: {
+      type: 'array',
+      items: {
+        type: 'object',
+        required: ['name', 'tagId'],
+        properties: {
+          name: {
+            type: 'string'
+          },
+          tagId: {
+            type: ['object', 'string']
+          }
+        }
+      }
+    },
+
     privacy: {
       type: 'string',
       enum: [
@@ -79,7 +100,7 @@ module.exports.createValidationSchema = {
 
 module.exports.updateValidationSchema = {
   type: 'object',
-  required: ['title', 'character'],
+  required: ['title'],
   properties: {
     strategy:{
       type: 'string',
@@ -87,14 +108,34 @@ module.exports.updateValidationSchema = {
         'local'
       ],
     },
+
+    tags: {
+      type: 'array',
+      items: {
+        type: 'object',
+        required: ['name', 'tagId'],
+        properties: {
+          name: {
+            type: 'string'
+          },
+          tagId: {
+            type: ['object', 'string']
+          }
+        }
+      }
+    },
+
+    privacy: {
+      type: 'string',
+      enum: [
+        'guild',
+        'private',
+        'public',
+      ]
+    },
+
     title: {
       type: 'string',
     },
-    character: {
-      record:{
-        type: 'string', //required
-      }
-    },
-    
   }
 };
