@@ -5,6 +5,7 @@ const hooks = require('./folders.hooks');
 
 module.exports = function (app) {
   const options = {
+    multi: ['patch'],
     Model: createModel(app),
     paginate: app.get('paginate')
   };
