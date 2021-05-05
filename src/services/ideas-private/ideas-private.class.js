@@ -1,3 +1,5 @@
+// db.folders.updateOne({_id: ObjectId("6066200f7249bf24dc797a12")}, {$pull: {ideiasId: ObjectId('6081ecfc0d64c343947e3cd5')}})
+
 /* eslint-disable no-unused-vars */
 exports.IdeasPrivate = class IdeasPrivate {
   constructor (options, app) {
@@ -160,6 +162,25 @@ exports.IdeasPrivate = class IdeasPrivate {
       })
     }
 
+    if(data.privacy === 'private'){
+      let foldersPayload = {
+        $pull: {
+          ideiasId: id
+        }
+      }
+
+      let foldersParams = {
+        query: {
+          ideiasId: id,
+          userId: { 
+            $ne: user._id
+          }
+        }
+      }
+
+      await this.app.service('folders').patch(null, foldersPayload, foldersParams)
+    }
+
     delete data.userId
     delete params.provider
 
@@ -174,6 +195,8 @@ exports.IdeasPrivate = class IdeasPrivate {
     params.query = { 
       $and: [query, params.query]
     };
+
+    //remover seu id das pastas
     
     delete params.provider
     return this.app.service('ideas').remove(id, params)
