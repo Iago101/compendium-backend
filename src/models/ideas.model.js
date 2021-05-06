@@ -33,7 +33,7 @@ module.exports = function (app) {
     style: {type: Number},
     userId: { type: Schema.Types.ObjectId, ref: 'users'},
     creationPoints: {type: Number},
-    comments: {type: String},
+    commentsCount: {type:Number, default: 0},
     link: {type: String},
     city: citySchema,
     character: characterSchema,
