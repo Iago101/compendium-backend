@@ -19,7 +19,7 @@ module.exports = function (app) {
     title: {type: String},
     profileText: {type: String},
     city: {type: String},
-    guildId: { type: String, ref: 'guilds' }
+    guildId: { type:  Schema.Types.ObjectId, ref: 'guilds' }
   }, {
     timestamps: true
   });
