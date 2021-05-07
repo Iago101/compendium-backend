@@ -17,7 +17,7 @@ module.exports = function (app) {
     tags: [{type: tagSchema}],
     title: { type: String, required: true },
     description: {type: String},
-    members: { type: String},
+    membersId: [{type: Schema.Types.ObjectId, ref: 'users'}],
     link: { type: String}
   }, {
     timestamps: true
@@ -45,14 +45,6 @@ module.exports.createValidationSchema = {
     title: {
       type: 'string',
     },
-    tags:{
-      name: {
-        type: 'string',
-      },
-      value: {
-        type: 'number'
-      }
-    }
     
   }
 };
@@ -70,14 +62,6 @@ module.exports.updateValidationSchema = {
     title: {
       type: 'string',
     },
-    tags:{
-      name: {
-        type: 'string',
-      },
-      value: {
-        type: 'number'
-      }
-    }
     
   }
 };

@@ -16,15 +16,11 @@ const ideasPrivate = require('./ideas-private/ideas-private.service.js');
 const ideasInteraction = require('./ideas-interaction/ideas-interaction.service.js');
 const likes = require('./likes/likes.service.js');
 const tags = require('./tags/tags.service.js');
-<<<<<<< HEAD
-const tagsService = require('./tags-service/tags-service.service.js');
 const comments = require('./comments/comments.service.js');
 const commentsPublic = require('./comments-public/comments-public.service.js');
 const commentsPrivate = require('./comments-private/comments-private.service.js');
 const messages = require('./messages/messages.service.js');
 const messagesPrivate = require('./messages-private/messages-private.service.js');
-=======
->>>>>>> basicode
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -45,13 +41,9 @@ module.exports = function (app) {
   app.configure(ideasInteraction);
   app.configure(likes);
   app.configure(tags);
-<<<<<<< HEAD
-  app.configure(tagsService);
   app.configure(comments);
   app.configure(commentsPublic);
   app.configure(commentsPrivate);
   app.configure(messages);
   app.configure(messagesPrivate);
-=======
->>>>>>> basicode
 };

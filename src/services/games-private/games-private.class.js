@@ -87,6 +87,8 @@ exports.GamesPrivate = class GamesPrivate {
       })
     }
 
+   
+
     delete data.userId
     delete params.provider
 
