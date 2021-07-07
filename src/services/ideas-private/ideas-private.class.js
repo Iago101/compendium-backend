@@ -30,7 +30,7 @@ exports.IdeasPrivate = class IdeasPrivate {
     };
 
     params.query = { 
-      $and: [query, params.query]
+      $and: [query, params.query] 
     };
 
     delete params.provider

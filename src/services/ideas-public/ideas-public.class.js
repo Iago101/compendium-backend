@@ -6,12 +6,41 @@ exports.IdeasPublic = class IdeasPublic {
   }
 
   async find (params) {
+    const user = params.user
+
+    let query = {
+      $or: [
+        {
+          privacy: 'public'
+        },
+      ]
+    };
+
+    params.query = { 
+      $and: [query, params.query] 
+    };
+
     delete params.provider
+
     return this.app.service('ideas').find(params)
   }
 
   async get (id, params) {
+    const user = params.user
+
+    let query = {
+      $or: [
+        {
+          privacy: 'public'
+        },
+      ]
+    };
+
+    params.query = { 
+      $and: [query, params.query]
+    };
+
     delete params.provider
-    return this.app.service('ideas').find(params)
+    return this.app.service('ideas').get(id, params)
   }
 };

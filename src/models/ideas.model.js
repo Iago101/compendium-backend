@@ -30,12 +30,11 @@ module.exports = function (app) {
 
   const schema = new Schema({
     title: { type: String, required: true },
-    foldersId: { type: Schema.Types.ObjectId, ref: 'folders'}, // multi pastas, cópias? ou referencias da original, pastas guardam o id
     tags: [{type: tagSchema}],//string array
     image: { type: String }, 
     privacy: {type: String},
     description: { type: String },
-    style: {type: Number},
+    type: {type: Number},
     userId: { type: Schema.Types.ObjectId, ref: 'users'},
     creationPoints: {type: Number},
     commentsCount: {type:Number, default: 0},
