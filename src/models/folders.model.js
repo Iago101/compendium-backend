@@ -16,7 +16,7 @@ module.exports = function (app) {
     name: { type: String, required: true },
     tags: [{type: tagSchema}], //object ou strin
     userId: {type: Schema.Types.ObjectId, ref: 'users'}, //required
-    ideiasId: [{type: Schema.Types.ObjectId, ref: 'ideas'}],
+    ideasId: [{type: Schema.Types.ObjectId, ref: 'ideas'}],
     gameId: {type: Schema.Types.ObjectId, ref: 'games'},
     privacy: {type: String},
     type: { type: String},

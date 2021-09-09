@@ -1,4 +1,4 @@
-// db.folders.updateOne({_id: ObjectId("6066200f7249bf24dc797a12")}, {$pull: {ideiasId: ObjectId('6081ecfc0d64c343947e3cd5')}})
+// db.folders.updateOne({_id: ObjectId("6066200f7249bf24dc797a12")}, {$pull: {ideasId: ObjectId('6081ecfc0d64c343947e3cd5')}})
 
 /* eslint-disable no-unused-vars */
 exports.IdeasPrivate = class IdeasPrivate {
@@ -96,6 +96,8 @@ exports.IdeasPrivate = class IdeasPrivate {
       })
     }
 
+    data.creationPoints = 0
+
     delete params.provider
     return this.app.service('ideas').create(data, params);
   }
@@ -165,13 +167,13 @@ exports.IdeasPrivate = class IdeasPrivate {
     if(data.privacy === 'private'){
       let foldersPayload = {
         $pull: {
-          ideiasId: id
+          ideasId: id
         }
       }
 
       let foldersParams = {
         query: {
-          ideiasId: id,
+          ideasId: id,
           userId: { 
             $ne: user._id
           }

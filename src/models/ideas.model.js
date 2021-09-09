@@ -6,20 +6,34 @@ module.exports = function (app) {
   const modelName = 'ideas';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
-  const citySchema = new Schema({
-    population: { type: Number},
-    description: { type: String, required: true },
-    relevantPlaces: { type: String, required: true },
+  const localSchema = new Schema({
+    population: { type: String},
+    hasDesc: {type: Boolean},
+    description: { type: String },
+    hasRelevantPlaces: {type: Boolean},
+    relevantPlaces: { type: String},
+    hasEconomy: {type: Boolean},
+    economy: { type: String},
+    hasHierarchy: {type: Boolean},
+    hierarchy: { type: String},
+    hasDefenses: {type: Boolean},
+    defenses: { type: String},
   });
   const characterSchema = new Schema({
-    record: {type: String, required: true}, // subdocumento
+    record: {type: Object}, // subdocumento
     system: { type: String },
   });
   const itemSchema = new Schema({
+    doesDamage: {type: Boolean},
     damage: { type: String},
+    hasCharges: {type: Boolean},
     charges: {type: String},
+    perWhen: {type: String},
+    hasOrigin: {type: Boolean},
     origin: {type: String},
-    utilization: { type: String}, //required?
+    hasUtilization: {type: Boolean},
+    utilization: { type: String},
+    hasRules: {type: Boolean},
     rules: { type: String},
   });
 
@@ -34,12 +48,12 @@ module.exports = function (app) {
     image: { type: String }, 
     privacy: {type: String},
     description: { type: String },
-    type: {type: Number},
+    type: {type: String},
     userId: { type: Schema.Types.ObjectId, ref: 'users'},
     creationPoints: {type: Number},
     commentsCount: {type:Number, default: 0},
     link: {type: String},
-    city: citySchema,
+    local: localSchema,
     character: characterSchema,
     item: itemSchema
   }, {

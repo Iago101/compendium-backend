@@ -31,6 +31,12 @@ exports.CommentsPrivate = class CommentsPrivate {
     return this.app.service("comments").update(id,data,params);
   }
 
+  async find (params) {
+
+    delete params.provider
+    return this.app.service('comments').find(params);
+  }
+
   async patch (id, data, params) {
     const user = params.user
 
