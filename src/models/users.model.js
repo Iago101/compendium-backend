@@ -16,7 +16,6 @@ module.exports = function (app) {
     password: {type: String, required: true},
     foldersId: {type: String},
     socialMediaKeys: {type: String},
-    title: {type: String},
     profileText: {type: String},
     city: {type: String},
     guildId: { type:  Schema.Types.ObjectId, ref: 'guilds' }

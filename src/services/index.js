@@ -16,7 +16,6 @@ const ideasPrivate = require('./ideas-private/ideas-private.service.js');
 const ideasInteraction = require('./ideas-interaction/ideas-interaction.service.js');
 const likes = require('./likes/likes.service.js');
 const tags = require('./tags/tags.service.js');
-const tagsService = require('./tags-service/tags-service.service.js');
 const comments = require('./comments/comments.service.js');
 const commentsPublic = require('./comments-public/comments-public.service.js');
 const commentsPrivate = require('./comments-private/comments-private.service.js');
@@ -42,7 +41,6 @@ module.exports = function (app) {
   app.configure(ideasInteraction);
   app.configure(likes);
   app.configure(tags);
-  app.configure(tagsService);
   app.configure(comments);
   app.configure(commentsPublic);
   app.configure(commentsPrivate);

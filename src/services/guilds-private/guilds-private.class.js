@@ -52,8 +52,7 @@ exports.GuildsPrivate = class GuildsPrivate {
     };
     
     delete params.provider
-    //encontrar os membros da guilda
-    //deleta o id da guilda do usuario
+    
     let usersPayload = {
       guildId: null
     }
@@ -62,9 +61,8 @@ exports.GuildsPrivate = class GuildsPrivate {
         guildId : id
       }
     }
-    console.log(1)
     await this.app.service('users').patch(null, usersPayload, usersParams)
-    console.log(2)
+    
     return this.app.service('guilds').remove(id, params)
   }
 };

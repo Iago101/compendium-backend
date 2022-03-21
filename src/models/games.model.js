@@ -7,17 +7,17 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
 
-  const Tags = new Schema({
-    name: { type: String, required: true },
-    value: { type: Number, required: true }
+  const tagSchema = new Schema({
+    tagId: { type: Schema.Types.ObjectId, ref: 'tags'}, 
+    name:{ type: String, required: true },
   });
 
   const schema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'users'},//required
-    tags: Tags,
+    tags: [{type: tagSchema}],
     title: { type: String, required: true },
     description: {type: String},
-    members: { type: String},
+    membersId: [{type: Schema.Types.ObjectId, ref: 'users'}],
     link: { type: String}
   }, {
     timestamps: true
@@ -45,14 +45,6 @@ module.exports.createValidationSchema = {
     title: {
       type: 'string',
     },
-    tags:{
-      name: {
-        type: 'string',
-      },
-      value: {
-        type: 'number'
-      }
-    }
     
   }
 };
@@ -70,14 +62,6 @@ module.exports.updateValidationSchema = {
     title: {
       type: 'string',
     },
-    tags:{
-      name: {
-        type: 'string',
-      },
-      value: {
-        type: 'number'
-      }
-    }
     
   }
 };
