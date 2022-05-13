@@ -23,7 +23,8 @@ module.exports = function (app) {
     description: { type: String},
     guildId: { type: Schema.Types.ObjectId, ref: 'guilds'},
     style: { type: Number},
-    warning: { type: String}
+    warning: { type: String},
+    reported: {type: Boolean}
   }, {
     timestamps: true
   });

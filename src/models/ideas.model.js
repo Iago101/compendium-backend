@@ -44,7 +44,7 @@ module.exports = function (app) {
 
   const schema = new Schema({
     title: { type: String, required: true },
-    tags: [{type: tagSchema}],//string array
+    tags: [{type: tagSchema}],
     image: { type: String }, 
     privacy: {type: String},
     description: { type: String },
@@ -55,7 +55,8 @@ module.exports = function (app) {
     link: {type: String},
     local: localSchema,
     character: characterSchema,
-    item: itemSchema
+    item: itemSchema,
+    reported: {type: Boolean}
   }, {
     timestamps: true
   });

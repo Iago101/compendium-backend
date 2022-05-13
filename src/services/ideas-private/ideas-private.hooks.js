@@ -5,12 +5,7 @@ const validate = require('../../lib/validate.js');
 
 const validationSchema = JSON.parse(JSON.stringify(createValidationSchema))
 delete validationSchema.properties.tags
-validationSchema.properties.tags = {
-  type: 'array',
-  items: {
-    type: 'string'
-  }
-}
+
 
 module.exports = {
   before: {

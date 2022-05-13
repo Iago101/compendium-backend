@@ -11,14 +11,15 @@ module.exports = function (app) {
     title: {type: String},
     email: {type: String, required: true},
     gamesId: [{ type: Schema.Types.ObjectId, ref: 'games' }],
-    roles: {type: String},
+    permissions: [{type: String}],
     gameRole: {type: String},
     password: {type: String, required: true},
     foldersId: {type: String},
     socialMediaKeys: {type: String},
     profileText: {type: String},
     city: {type: String},
-    guildId: { type:  Schema.Types.ObjectId, ref: 'guilds' }
+    guildId: { type:  Schema.Types.ObjectId, ref: 'guilds' },
+    favoriteIdeas: [{type: Schema.Types.ObjectId, ref: 'ideas'}]
   }, {
     timestamps: true
   });
