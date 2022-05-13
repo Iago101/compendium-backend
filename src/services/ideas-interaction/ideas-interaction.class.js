@@ -34,14 +34,14 @@ exports.IdeasInteraction = class IdeasInteraction {
     if(query.total){
       await this.app.service('likes').remove(query.data[0]._id);
       let idea = await this.app.service('ideas').get(id);
-      let creationPoints = idea.creationPoints
-      creationPoints -= 1
+      let creationPoints = idea.creationPoints;
+      creationPoints -= 1;
       await this.app.service('ideas').patch(id,{creationPoints: creationPoints});
     } else{
       await this.app.service('likes').create({userId: user._id,ideaId: id});
       let idea = await this.app.service('ideas').get(id);
-      let creationPoints = idea.creationPoints || 0
-      creationPoints += 1
+      let creationPoints = idea.creationPoints || 0;
+      creationPoints += 1;
       await this.app.service('ideas').patch(id,{creationPoints: creationPoints});
     }
 

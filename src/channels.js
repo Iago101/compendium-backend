@@ -52,10 +52,19 @@ module.exports = function(app) {
   // app.service('users').publish('created', () => app.channel('admins'));
   
   // With the userid and email organization from above you can easily select involved users
-  // app.service('messages').publish(() => {
+  // app.service('ideas').publish(() => {
   //   return [
-  //     app.channel(`userIds/${data.createdBy}`),
-  //     app.channel(`emails/${data.recipientEmail}`)
+  //     app.channel(`ideas-public`),
+  //     app.channel(`ideas-private`)
   //   ];
   // });
+
+  app.service('ideas').publish((data, context) => {
+    let method = context.method;
+    if (!['d', 'e'].includes(method.slice(-1))) method += 'ed';
+    if (method.slice(-1) === 'e') method += 'd';
+
+    app.service('ideas-public').emit(method, data);
+    app.service('ideas-private').emit(method, data);
+  });
 };

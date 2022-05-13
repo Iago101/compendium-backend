@@ -14,13 +14,15 @@ module.exports = function (app) {
   });
 
   const schema = new Schema({
-    name: { type: String, required: true},
+    name: { type: String, required: true, unique: true},
     userId: { type: Schema.Types.ObjectId, ref: 'users'}, //GM aqui
-    icon: { type: String, required: true}, 
-    members: {type: String},
+    icon: { type: String}, 
+    members: [{ type: Schema.Types.ObjectId, ref: 'users'}],
+    about: {type: String},
     style: { type: String}, 
     warning: { type: String},
     guildRole: GuildRole,
+    reported: {type: Boolean}
 
   }, {
     timestamps: true
@@ -37,7 +39,7 @@ module.exports = function (app) {
 
 module.exports.createValidationSchema = {
   type: 'object',
-  required: ['name', 'icon', 'guildRole'],
+  required: ['name', 'about'],
   properties: {
     strategy:{
       type: 'string',
@@ -48,21 +50,15 @@ module.exports.createValidationSchema = {
     name: {
       type: 'string',
     },
-    icon: {
+    about: {
       type: 'string',
     },
-    guildRole: {
-      roleName:{
-        type: 'string',
-      }
-    },
-    
   }
 };
 
 module.exports.updateValidationSchema = {
   type: 'object',
-  required: ['name', 'icon', 'guildRole'],
+  required: ['name', 'about'],
   properties: {
     strategy:{
       type: 'string',
@@ -73,14 +69,8 @@ module.exports.updateValidationSchema = {
     name: {
       type: 'string',
     },
-    icon: {
+    about: {
       type: 'string',
     },
-    guildRole: {
-      roleName:{
-        type: 'string',
-      }
-    },
-    
   }
 };

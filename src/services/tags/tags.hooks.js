@@ -1,16 +1,17 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const { createValidationSchema } = require('../../models/tags.model');
 const validate = require('../../lib/validate.js');
+const { disallow } = require('feathers-hooks-common')
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [ ],
     find: [],
     get: [],
     create: [validate( createValidationSchema)],
-    update: [validate( createValidationSchema)],
-    patch: [validate( createValidationSchema)],
-    remove: []
+    update: [disallow('external')],
+    patch: [disallow('external')],
+    remove: [disallow('external')]
   },
 
   after: {

@@ -6,38 +6,57 @@ module.exports = function (app) {
   const modelName = 'ideas';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
-  const citySchema = new Schema({
-    population: { type: Number},
-    description: { type: String, required: true },
-    relevantPlaces: { type: String, required: true },
+  const localSchema = new Schema({
+    population: { type: String},
+    hasDesc: {type: Boolean},
+    description: { type: String },
+    hasRelevantPlaces: {type: Boolean},
+    relevantPlaces: { type: String},
+    hasEconomy: {type: Boolean},
+    economy: { type: String},
+    hasHierarchy: {type: Boolean},
+    hierarchy: { type: String},
+    hasDefenses: {type: Boolean},
+    defenses: { type: String},
   });
   const characterSchema = new Schema({
-    record: {type: String, required: true}, // subdocumento
+    record: {type: Object}, // subdocumento
     system: { type: String },
   });
   const itemSchema = new Schema({
+    doesDamage: {type: Boolean},
     damage: { type: String},
+    hasCharges: {type: Boolean},
     charges: {type: String},
+    perWhen: {type: String},
+    hasOrigin: {type: Boolean},
     origin: {type: String},
-    utilization: { type: String}, //required?
+    hasUtilization: {type: Boolean},
+    utilization: { type: String},
+    hasRules: {type: Boolean},
     rules: { type: String},
+  });
+
+  const tagSchema = new Schema({
+    tagId: { type: Schema.Types.ObjectId, ref: 'tags'}, 
+    name:{ type: String, required: true },
   });
 
   const schema = new Schema({
     title: { type: String, required: true },
-    foldersId: { type: Schema.Types.ObjectId, ref: 'folders'}, // multi pastas, cópias? ou referencias da original, pastas guardam o id
-    tags: {type: Schema.Types.ObjectId, ref: 'tags'},//string array
+    tags: [{type: tagSchema}],
     image: { type: String }, 
     privacy: {type: String},
     description: { type: String },
-    style: {type: Number},
+    type: {type: String},
     userId: { type: Schema.Types.ObjectId, ref: 'users'},
     creationPoints: {type: Number},
     commentsCount: {type:Number, default: 0},
     link: {type: String},
-    city: citySchema,
+    local: localSchema,
     character: characterSchema,
-    item: itemSchema
+    item: itemSchema,
+    reported: {type: Boolean}
   }, {
     timestamps: true
   });
@@ -62,6 +81,22 @@ module.exports.createValidationSchema = {
       ],
     },
 
+    tags: {
+      type: 'array',
+      items: {
+        type: 'object',
+        required: ['name', 'tagId'],
+        properties: {
+          name: {
+            type: 'string'
+          },
+          tagId: {
+            type: ['object', 'string']
+          }
+        }
+      }
+    },
+
     privacy: {
       type: 'string',
       enum: [
@@ -79,7 +114,7 @@ module.exports.createValidationSchema = {
 
 module.exports.updateValidationSchema = {
   type: 'object',
-  required: ['title', 'character'],
+  required: ['title'],
   properties: {
     strategy:{
       type: 'string',
@@ -87,14 +122,34 @@ module.exports.updateValidationSchema = {
         'local'
       ],
     },
+
+    tags: {
+      type: 'array',
+      items: {
+        type: 'object',
+        required: ['name', 'tagId'],
+        properties: {
+          name: {
+            type: 'string'
+          },
+          tagId: {
+            type: ['object', 'string']
+          }
+        }
+      }
+    },
+
+    privacy: {
+      type: 'string',
+      enum: [
+        'guild',
+        'private',
+        'public',
+      ]
+    },
+
     title: {
       type: 'string',
     },
-    character: {
-      record:{
-        type: 'string', //required
-      }
-    },
-    
   }
 };

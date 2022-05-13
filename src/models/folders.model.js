@@ -7,17 +7,24 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
 
+  const tagSchema = new Schema({
+    tagId: { type: Schema.Types.ObjectId, ref: 'tags'}, 
+    name:{ type: String, required: true },
+  });
+
   const schema = new Schema({
     name: { type: String, required: true },
-    tags: {type: Schema.Types.ObjectId, ref: 'tags'}, //object ou strin
+    tags: [{type: tagSchema}], //object ou strin
     userId: {type: Schema.Types.ObjectId, ref: 'users'}, //required
+    ideasId: [{type: Schema.Types.ObjectId, ref: 'ideas'}],
     gameId: {type: Schema.Types.ObjectId, ref: 'games'},
     privacy: {type: String},
     type: { type: String},
     description: { type: String},
     guildId: { type: Schema.Types.ObjectId, ref: 'guilds'},
     style: { type: Number},
-    warning: { type: String}
+    warning: { type: String},
+    reported: {type: Boolean}
   }, {
     timestamps: true
   });
@@ -33,7 +40,7 @@ module.exports = function (app) {
 
 module.exports.createValidationSchema = {
   type: 'object',
-  required: ['name', 'tags'],
+  required: ['name'],
   properties: {
     strategy:{
       type: 'string',
@@ -53,16 +60,6 @@ module.exports.createValidationSchema = {
         'public'
       ]
     },
-    
-    tags:{
-      name: {
-        type: 'string',
-      },
-      value: {
-        type: 'number'
-      }
-    }
-    
   }
 };
 
