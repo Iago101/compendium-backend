@@ -7,7 +7,7 @@ exports.FoldersPrivate = class FoldersPrivate {
 
   async find (params) {
     const user = params.user
-    if(params.user.permissions.includes('super_admin') && params.query.asSuperAdmin){
+    if(params.user?.permissions?.includes('super_admin') && params.query.asSuperAdmin){
       delete params.query.asSuperAdmin
       delete params.provider
       return this.app.service('folders').find(params)
