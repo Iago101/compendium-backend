@@ -14,6 +14,11 @@ exports.UsersPrivate = class UsersPrivate {
     return this.app.service('users').patch(id, data, params)
   }
 
+  async get (id, params) {
+    delete params.provider
+    return this.app.service('users').get(params)
+  }
+
   async remove (id, params) {
     delete params.provider
     return this.app.service('users').remove(id, params)

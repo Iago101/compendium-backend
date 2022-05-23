@@ -12,6 +12,6 @@ exports.GuildsPublic = class GuildsPublic {
 
   async get (id, params) {
     delete params.provider
-    return this.app.service('guilds').find(params)
+    return this.app.service('guilds').get(params)
   }
 };

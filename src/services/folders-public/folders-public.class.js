@@ -6,6 +6,7 @@ exports.FoldersPublic = class FoldersPublic {
   }
 
   async find(params){
+
     let query = {};
     query.privacy = 'public';
 

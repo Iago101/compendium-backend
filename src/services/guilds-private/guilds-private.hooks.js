@@ -10,7 +10,7 @@ module.exports = {
     get: [],
     create: [validate( createValidationSchema)],
     update: [validate( updateValidationSchema)],
-    //patch: [],
+    patch: [],
     remove: []
   },
 

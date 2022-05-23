@@ -9,7 +9,11 @@ exports.IdeasPrivate = class IdeasPrivate {
 
   async find (params) {
     const user = params.user
-
+    if(params.user.permissions.includes('super_admin') && params.query.asSuperAdmin){
+      delete params.query.asSuperAdmin
+      delete params.provider
+      return this.app.service('ideas').find(params)
+    }
     let query = {
       $or: [
         {
@@ -141,6 +145,11 @@ exports.IdeasPrivate = class IdeasPrivate {
 
   async patch (id, data, params) {
     const user = params.user
+    if(params.query.asReport){
+      delete params.query.asReport
+      delete params.provider
+      return this.app.service('ideas').patch(id, data, params)
+    }
     let query = { userId: user._id };
 
     params.query = { 
@@ -191,7 +200,11 @@ exports.IdeasPrivate = class IdeasPrivate {
 
   async remove (id, params) {
     const user = params.user
-
+    if(params.query.asReport){
+      delete params.query.asReport
+      delete params.provider
+      return this.app.service('ideas').remove(id,params)
+    }
     let query = { userId: user._id };
 
     params.query = { 

@@ -27,8 +27,6 @@ module.exports.createValidationSchema = {
   properties: {
     name:{
       type: 'string',
-      // TODO
-      // sanitize
     },
   }
 };

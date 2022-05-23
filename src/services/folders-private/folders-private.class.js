@@ -7,6 +7,11 @@ exports.FoldersPrivate = class FoldersPrivate {
 
   async find (params) {
     const user = params.user
+    if(params.user.permissions.includes('super_admin') && params.query.asSuperAdmin){
+      delete params.query.asSuperAdmin
+      delete params.provider
+      return this.app.service('folders').find(params)
+    }
 
     let query = {
       $or: [
@@ -149,6 +154,11 @@ exports.FoldersPrivate = class FoldersPrivate {
 
   async patch (id, data, params) {
     const user = params.user
+    if(params.query.asReport){
+      delete params.query.asReport
+      delete params.provider
+      return this.app.service('folders').patch(id, data, params)
+    }
     let query = { userId: user._id };
 
     params.query = { 
@@ -182,7 +192,11 @@ exports.FoldersPrivate = class FoldersPrivate {
 
   async remove (id, params) {
     const user = params.user
-
+    if(params.query.asReport){
+      delete params.query.asReport
+      delete params.provider
+      return this.app.service('folders').remove(id,params)
+    }
     let query = { userId: user._id };
 
     params.query = { 
