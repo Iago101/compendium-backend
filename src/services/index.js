@@ -21,6 +21,7 @@ const commentsPublic = require('./comments-public/comments-public.service.js');
 const commentsPrivate = require('./comments-private/comments-private.service.js');
 const messages = require('./messages/messages.service.js');
 const messagesPrivate = require('./messages-private/messages-private.service.js');
+const feedback = require('./feedback/feedback.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -46,4 +47,5 @@ module.exports = function (app) {
   app.configure(commentsPrivate);
   app.configure(messages);
   app.configure(messagesPrivate);
+  app.configure(feedback);
 };
