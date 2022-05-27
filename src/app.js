@@ -1,3 +1,4 @@
+const dotenv = require('dotenv');
 const path = require('path');
 const favicon = require('serve-favicon');
 const compress = require('compression');
@@ -19,7 +20,8 @@ const channels = require('./channels');
 const authentication = require('./authentication');
 
 const mongoose = require('./mongoose');
-
+let envFile = path.resolve(__dirname, '../.env');
+dotenv.config({ path: envFile });
 const app = express(feathers());
 
 // Load app configuration

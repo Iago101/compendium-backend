@@ -111,3 +111,4 @@ lib/
 data/
 
 !src/lib
+.env
